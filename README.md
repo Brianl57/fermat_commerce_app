@@ -112,25 +112,25 @@ This sums up the `quantity` column for each product to represent total units sol
 - **Sorting**: A default order serves as the fallback when no sort option is selected.
 
 ## Tradeoffs
-- monorepo: 
-    pro: ease of development and maintainence
-    con: must update both frontend and backend when shared types are modified -> introduces risk of inconsistent types
+1. monorepo: 
+    - pro: ease of development and maintainence
+    - con: must update both frontend and backend when shared types are modified -> introduces risk of inconsistent types
 
-- SQLite + relational modeling
-    pro: fast to build, easy local dev, SQL is strong for search/filter/sort and joins.
-    con: concurrency limits (single writes only)
+2. SQLite + relational modeling
+    - pro: fast to build, easy local dev, SQL is strong for search/filter/sort and joins.
+    - con: concurrency limits (single writes only)
 
--  Schema design
-    pro: separating tags and order items into separate tables adds support for filtering by tags and sort by popularity.
-    con: more complex queries and joins + additional tables
+3. Schema design
+    - pro: separating tags and order items into separate tables adds support for filtering by tags and sort by popularity.
+    - con: more complex queries and joins + additional tables
 
--  Unified “getProducts” query builder (single repository function)
-    pro: elegant and scalable, centralizes logic for product retrieval.
-    con: complex since its one giant query; hard to debug; caclulates popularity on every request adds overhead
+4.  Unified “getProducts” query builder (single repository function)
+    - pro: elegant and scalable, centralizes logic for product retrieval.
+    - con: complex since its one giant query; hard to debug; caclulates popularity on every request adds overhead
 
-- routes -> services -> repositories layering:
-    pro: each layer has a single responsibility; makes backend code easier to test and maintain
-    con: overkill for a small app
+5. routes -> services -> repositories layering:
+    - pro: each layer has a single responsibility; makes backend code easier to test and maintain
+    - con: overkill for a small app
 
 ## What I would do with more time
 - implement a more robust search functionality that allows for typos and partial matches
