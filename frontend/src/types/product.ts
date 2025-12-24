@@ -10,7 +10,5 @@ export type Product = {
     inStock: boolean;
     imageUrl: string;
     tags?: string[];
-
-    // returned by backend for "Most popular" sort + indicator
-    popularity?: number;
+    purchaseCount: number;
 };

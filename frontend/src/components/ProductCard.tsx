@@ -1,6 +1,6 @@
 
 import type { Product } from "../types/product";
-import "./ProductCard.css";
+import "../styles/ProductCard.css";
 
 type ProductCardProps = {
     product: Product;
@@ -23,6 +23,10 @@ export function ProductCard({ product }: ProductCardProps) {
 
             <div className="product-rating">
                 {product.rating.toFixed(1)} ★
+            </div>
+
+            <div className="product-sold">
+                {product.purchaseCount.toLocaleString()} sold
             </div>
 
             <div className="product-price">

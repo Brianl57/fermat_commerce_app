@@ -98,6 +98,12 @@
     font-weight: 600;
     color: #2563eb;
     /* text-blue-600 */
+    margin-bottom: 0.25rem;
+}
+
+.product-sold {
+    font-size: 0.8rem;
+    color: #6b7280;
     margin-bottom: 0.5rem;
 }
 

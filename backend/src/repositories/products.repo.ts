@@ -4,12 +4,17 @@ import type { ListProductsInput } from "../services/products.service.ts";
 export async function getProducts(input: ListProductsInput) {
     const db = await initDb();
 
-    const { q, category, brand, minPrice, maxPrice } = input;
+    const { q, category, brand, minPrice, maxPrice, sort } = input;
 
+    // Base query with LEFT JOINs for tags and purchase count
     let query = `
-    SELECT p.*, GROUP_CONCAT(pt.tag) as tags
+    SELECT 
+      p.*, 
+      GROUP_CONCAT(DISTINCT pt.tag) as tags,
+      COALESCE(SUM(oi.quantity), 0) as purchaseCount
     FROM products p
     LEFT JOIN product_tags pt ON p.id = pt.productId
+    LEFT JOIN order_items oi ON p.id = oi.productId
   `;
 
     const params: any[] = [];
@@ -49,12 +54,30 @@ export async function getProducts(input: ListProductsInput) {
 
     query += ` GROUP BY p.id`;
 
+    // Add ORDER BY based on sort parameter
+    switch (sort) {
+        case "price_asc":
+            query += ` ORDER BY p.price ASC`;
+            break;
+        case "price_desc":
+            query += ` ORDER BY p.price DESC`;
+            break;
+        case "rating":
+            query += ` ORDER BY p.rating DESC`;
+            break;
+        case "popular":
+            query += ` ORDER BY purchaseCount DESC`;
+            break;
+        // default: no ORDER BY (relevance)
+    }
+
     const rows = await db.all<any[]>(query, params);
 
     return rows.map((p) => ({
         ...p,
         inStock: Boolean(p.inStock),
         tags: p.tags ? String(p.tags).split(",") : [],
+        purchaseCount: Number(p.purchaseCount) || 0,
     }));
 }
 

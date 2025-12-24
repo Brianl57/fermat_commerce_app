@@ -8,7 +8,8 @@ import {
 } from "../api/products";
 import { ProductGrid } from "../components/ProductGrid";
 import { FilterPanel } from "../components/FilterPanel";
-import "./CatalogPage.css";
+import { SortDropdown } from "../components/SortDropdown";
+import "../styles/CatalogPage.css";
 
 export default function CatalogPage() {
     // Data State
@@ -25,6 +26,7 @@ export default function CatalogPage() {
     const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
     const [selectedBrands, setSelectedBrands] = useState<string[]>([]);
     const [priceCap, setPriceCap] = useState(500);
+    const [sortOption, setSortOption] = useState("");
 
     // Initial Fetch: Filters
     useEffect(() => {
@@ -42,7 +44,8 @@ export default function CatalogPage() {
             q: string,
             cats: string[],
             brands: string[],
-            price: number
+            price: number,
+            sort: string
         ) => {
             setLoading(true);
             setError(null);
@@ -53,6 +56,7 @@ export default function CatalogPage() {
                 brand: brands.length > 0 ? brands : undefined,
                 minPrice: 0,
                 maxPrice: price < 500 ? price : undefined,
+                sort: (sort || undefined) as ProductQuery["sort"],
             };
 
             try {
@@ -70,7 +74,7 @@ export default function CatalogPage() {
 
     // Handler: Search Button / Enter
     const handleSearch = () => {
-        loadProducts(searchQuery, selectedCategories, selectedBrands, priceCap);
+        loadProducts(searchQuery, selectedCategories, selectedBrands, priceCap, sortOption);
     };
 
     // Handler: Filter Changes (Immediate)
@@ -79,7 +83,7 @@ export default function CatalogPage() {
             ? selectedCategories.filter((c) => c !== cat)
             : [...selectedCategories, cat];
         setSelectedCategories(newCats);
-        loadProducts(searchQuery, newCats, selectedBrands, priceCap);
+        loadProducts(searchQuery, newCats, selectedBrands, priceCap, sortOption);
     };
 
     const toggleBrand = (brand: string) => {
@@ -87,24 +91,29 @@ export default function CatalogPage() {
             ? selectedBrands.filter((b) => b !== brand)
             : [...selectedBrands, brand];
         setSelectedBrands(newBrands);
-        loadProducts(searchQuery, selectedCategories, newBrands, priceCap);
+        loadProducts(searchQuery, selectedCategories, newBrands, priceCap, sortOption);
     };
 
     const changePrice = (price: number) => {
         setPriceCap(price);
-        loadProducts(searchQuery, selectedCategories, selectedBrands, price);
+        loadProducts(searchQuery, selectedCategories, selectedBrands, price, sortOption);
     };
 
     const clearFilters = () => {
         setSelectedCategories([]);
         setSelectedBrands([]);
         setPriceCap(500);
-        loadProducts(searchQuery, [], [], 500);
+        loadProducts(searchQuery, [], [], 500, sortOption);
+    };
+
+    const changeSort = (sort: string) => {
+        setSortOption(sort);
+        loadProducts(searchQuery, selectedCategories, selectedBrands, priceCap, sort);
     };
 
     // Initial Load
     useEffect(() => {
-        loadProducts("", [], [], 500);
+        loadProducts("", [], [], 500, "");
     }, [loadProducts]);
 
     return (
@@ -140,6 +149,11 @@ export default function CatalogPage() {
                     <button onClick={handleSearch} className="search-btn">
                         Search
                     </button>
+                    <SortDropdown
+                        value={sortOption}
+                        onChange={changeSort}
+                        disabled={loading}
+                    />
                 </div>
 
                 {/* Loading / Error / Grid */}

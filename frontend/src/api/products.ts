@@ -2,7 +2,7 @@
 import type { Product } from "../types/product";
 export type { Product };
 
-export type SortKey = "price_asc" | "price_desc" | "rating_desc" | "popular_desc";
+export type SortKey = "price_asc" | "price_desc" | "rating" | "popular" | "";
 
 export type ProductQuery = {
     q?: string;

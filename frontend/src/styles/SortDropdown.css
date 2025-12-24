@@ -1,0 +1,20 @@
+.sort-dropdown {
+    padding: 0.75rem 1rem;
+    border: 1px solid #e5e5e5;
+    border-radius: 0.375rem;
+    font-size: 1rem;
+    background-color: white;
+    cursor: pointer;
+    outline: none;
+    min-width: 180px;
+}
+
+.sort-dropdown:focus {
+    border-color: #2563eb;
+    box-shadow: 0 0 0 1px #2563eb;
+}
+
+.sort-dropdown:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
