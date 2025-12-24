@@ -1,5 +1,7 @@
 # E-Commerce Application
 
+I also documented my entire process on Notion: [Fermat Commerce App](https://handsome-custard-d5e.notion.site/Fermat-Commerce-App-2d2b325322fc80e2a67ceb0735005997)
+
 ## Prerequisites
 - Node.js (v18+ recommended)
 - npm
