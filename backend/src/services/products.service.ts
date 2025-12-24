@@ -12,3 +12,5 @@ export type ListProductsInput = {
 export async function listProducts(input: ListProductsInput) {
     return getProducts(input);
 }
+
+export { getFilterOptions } from "../repositories/products.repo";

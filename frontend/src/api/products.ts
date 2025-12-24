@@ -34,6 +34,17 @@ function buildQuery(params: ProductQuery) {
     return qs ? `?${qs}` : "";
 }
 
+export type FilterOptions = {
+    categories: string[];
+    brands: string[];
+};
+
+export async function fetchFilterOptions(): Promise<FilterOptions> {
+    const res = await fetch("/api/products/filters");
+    if (!res.ok) throw new Error("Failed to fetch filter options");
+    return res.json();
+}
+
 export async function fetchProducts(params: ProductQuery): Promise<ProductsResponse> {
     const res = await fetch(`/api/products${buildQuery(params)}`);
     if (!res.ok) throw new Error(`Failed to fetch products (${res.status})`);

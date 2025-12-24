@@ -1,0 +1,160 @@
+/* Main Layout */
+.catalog-container {
+    display: flex;
+    max-width: 1440px;
+    margin: 0 auto;
+    padding: 2rem;
+    gap: 2rem;
+    align-items: flex-start;
+}
+
+/* Sidebar (Filter Panel) */
+.filter-sidebar {
+    width: 260px;
+    /* Equivalent to w-64 (~16rem) but slightly wider for comfort */
+    flex-shrink: 0;
+    position: sticky;
+    top: 2rem;
+    max-height: calc(100vh - 4rem);
+    overflow-y: auto;
+    border-right: 1px solid #eee;
+    /* Optional visual separation */
+    padding-right: 1.5rem;
+}
+
+.filter-sidebar.disabled {
+    opacity: 0.5;
+    pointer-events: none;
+}
+
+.filter-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+}
+
+.filter-title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    margin: 0;
+}
+
+.clear-btn {
+    background: none;
+    border: none;
+    color: #0066cc;
+    cursor: pointer;
+    font-size: 0.875rem;
+    text-decoration: underline;
+    padding: 0;
+}
+
+.filter-section {
+    margin-bottom: 2rem;
+}
+
+.filter-section-title {
+    font-size: 1rem;
+    font-weight: 600;
+    margin-bottom: 0.75rem;
+    display: block;
+}
+
+.filter-options-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.filter-option {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    cursor: pointer;
+    font-size: 0.9rem;
+    color: #333;
+}
+
+.filter-price-range {
+    width: 100%;
+}
+
+.price-label {
+    font-size: 0.875rem;
+    color: #666;
+    margin-top: 0.5rem;
+}
+
+/* Main Content Area */
+.catalog-main {
+    flex: 1;
+    min-width: 0;
+    /* Prevents flex child from overflowing */
+}
+
+.catalog-title {
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+}
+
+/* Search Bar */
+.search-container {
+    display: flex;
+    gap: 0.75rem;
+    margin-bottom: 2rem;
+}
+
+.search-input {
+    flex: 1;
+    padding: 0.75rem;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-size: 1rem;
+}
+
+.search-btn {
+    padding: 0.75rem 1.5rem;
+    background-color: #0066cc;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+.search-btn:hover {
+    background-color: #0055aa;
+}
+
+/* Loading / Error / Empty States */
+.loading-msg,
+.error-msg,
+.empty-msg {
+    margin-bottom: 1.5rem;
+    font-size: 1rem;
+    color: #666;
+}
+
+.error-msg {
+    color: #d32f2f;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .catalog-container {
+        flex-direction: column;
+    }
+
+    .filter-sidebar {
+        width: 100%;
+        border-right: none;
+        padding-right: 0;
+        max-height: none;
+        position: static;
+        border-bottom: 1px solid #eee;
+        padding-bottom: 1.5rem;
+        margin-bottom: 1.5rem;
+    }
+}

@@ -1,7 +1,17 @@
 import { Router } from "express";
-import { listProducts } from "../services/products.service";
+import { listProducts, getFilterOptions } from "../services/products.service";
 
 export const productsRouter = Router();
+
+productsRouter.get("/filters", async (_req, res) => {
+    try {
+        const filters = await getFilterOptions();
+        res.json(filters);
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ error: "Internal Server Error" });
+    }
+});
 
 productsRouter.get("/", async (req, res) => {
     try {
