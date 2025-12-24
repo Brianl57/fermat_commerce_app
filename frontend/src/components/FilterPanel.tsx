@@ -41,7 +41,7 @@ export function FilterPanel({
 
             {/* Price Filter */}
             <div className="filter-section">
-                <span className="filter-section-title">Price</span>
+                <label className="filter-section-title">Price</label>
                 <input
                     type="range"
                     min="0"
@@ -67,7 +67,7 @@ export function FilterPanel({
                                 checked={selectedCategories.includes(cat)}
                                 onChange={() => onChangeCategory(cat)}
                             />
-                            <span>{cat}</span>
+                            {cat}
                         </label>
                     ))}
                 </div>
@@ -84,7 +84,7 @@ export function FilterPanel({
                                 checked={selectedBrands.includes(brand)}
                                 onChange={() => onChangeBrand(brand)}
                             />
-                            <span>{brand}</span>
+                            {brand}
                         </label>
                     ))}
                 </div>

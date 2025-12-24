@@ -8,6 +8,7 @@ import {
 } from "../api/products";
 import { ProductGrid } from "../components/ProductGrid";
 import { FilterPanel } from "../components/FilterPanel";
+import "./CatalogPage.css";
 
 export default function CatalogPage() {
     // Data State
@@ -67,22 +68,6 @@ export default function CatalogPage() {
         []
     );
 
-    // Effect: Trigger fetch whenever filters change
-    // Note: We include Query/Filters in dependency array to auto-fetch
-    useEffect(() => {
-        // For search query, we might want to debounce in real app, but requirements say "immediate" for filters.
-        // For text search, let's keep it manual (Enter/Button) OR if you want immediate, add it here.
-        // Wait, the plan said "User checks 'Nike' -> Immediate".
-        // Let's assume text search is still "Enter/Button" to avoid rapid firing, but filters are immediate.
-        // Actually, user APPROVED plan saying "Selecting a checkbox ... immediately triggers a fetch".
-        // Text search usually isn't immediate unless debounced. I'll stick to trigger on filter change ONLY?
-        // User requested: "selecting a filter ... applies immediately".
-        // I will call loadProducts manually in handlers to be safe and explicit, or use an effect.
-        // Using an effect for everything is cleaner if we want "reactive" UI.
-        // But text search usually needs debounce.
-        // I'll stick to: Handlers call loadProducts.
-    }, []);
-
     // Handler: Search Button / Enter
     const handleSearch = () => {
         loadProducts(searchQuery, selectedCategories, selectedBrands, priceCap);
@@ -107,25 +92,13 @@ export default function CatalogPage() {
 
     const changePrice = (price: number) => {
         setPriceCap(price);
-        // Debounce slider dragging? requirements say "releasing" or "immediate".
-        // Range input onChange fires continuously. onMouseUp is safer for fetch, but onChange drives UI.
-        // I will fetch on `onMouseUp` in the component, OR just debounce here.
-        // For simplicity/responsiveness, let's fetch on every change (might vary based on performance)
-        // or better: The FilterPanel calls this onChange. I can debounce it there or here.
-        // Let's just call it.
         loadProducts(searchQuery, selectedCategories, selectedBrands, price);
     };
-
-    // Revised Price Handler for "MouseUp" optimization if needed, but for now simple onChange.
-    // Actually, FilterPanel prop is `onChangePrice`. If I pass `changePrice` directly, it fetches on every tick.
-    // Better UX: Update state on change, fetch on mouse up (commit). 
-    // For now I'll just do direct fetch (Simpler code, might be spammy but safe for local).
 
     const clearFilters = () => {
         setSelectedCategories([]);
         setSelectedBrands([]);
         setPriceCap(500);
-        // Keep search query? Usually clear filters means clear filters, not search text.
         loadProducts(searchQuery, [], [], 500);
     };
 
@@ -135,7 +108,7 @@ export default function CatalogPage() {
     }, [loadProducts]);
 
     return (
-        <div className="container mx-auto p-4 flex gap-6">
+        <div className="catalog-container">
             {/* Sidebar */}
             <FilterPanel
                 availableCategories={availableCategories}
@@ -151,34 +124,31 @@ export default function CatalogPage() {
             />
 
             {/* Main Content */}
-            <div className="flex-1">
-                <h1 className="text-3xl font-bold mb-6">Product Catalog</h1>
+            <div className="catalog-main">
+                <h1 className="catalog-title">Product Catalog</h1>
 
                 {/* Search Bar */}
-                <div className="flex gap-2 mb-6">
+                <div className="search-container">
                     <input
                         type="text"
                         placeholder="Search products..."
-                        className="border p-2 rounded flex-1"
+                        className="search-input"
                         value={searchQuery}
                         onChange={(e) => setSearchQuery(e.target.value)}
                         onKeyDown={(e) => e.key === "Enter" && handleSearch()}
                     />
-                    <button
-                        onClick={handleSearch}
-                        className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
-                    >
+                    <button onClick={handleSearch} className="search-btn">
                         Search
                     </button>
                 </div>
 
                 {/* Loading / Error / Grid */}
-                {loading && <div className="text-gray-500 mb-4">Loading products...</div>}
+                {loading && <div className="loading-msg">Loading products...</div>}
 
-                {error && <div className="text-red-500 mb-4">{error}</div>}
+                {error && <div className="error-msg">{error}</div>}
 
                 {!loading && !error && products.length === 0 && (
-                    <div className="text-gray-500">No products found.</div>
+                    <div className="empty-msg">No products found.</div>
                 )}
 
                 {!error && products.length > 0 && <ProductGrid products={products} />}
@@ -186,3 +156,4 @@ export default function CatalogPage() {
         </div>
     );
 }
+

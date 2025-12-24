@@ -11,7 +11,7 @@ export function ProductCard({ product }: ProductCardProps) {
         <div className="product-card">
             <div className="product-image-wrapper">
                 <img
-                    src={product.imageUrl}
+                    src={product.imageUrl || "https://placehold.co/300x300?text=No+Image"}
                     alt={product.name}
                     className="product-image"
                 />
