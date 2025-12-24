@@ -140,6 +140,7 @@ This sums up the `quantity` column for each product to represent total units sol
 - add filtering by tags 
 - calculate popularity when new orders are added instead of on every request
 - add better UI/UX for loading states
+- show products that are in stock
 - test error handling for edge cases
 
 ## Bugs + Limitations
