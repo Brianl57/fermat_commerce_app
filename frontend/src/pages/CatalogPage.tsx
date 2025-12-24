@@ -134,7 +134,6 @@ export default function CatalogPage() {
 
             {/* Main Content */}
             <div className="catalog-main">
-                <h1 className="catalog-title">Product Catalog</h1>
 
                 {/* Search Bar */}
                 <div className="search-container">

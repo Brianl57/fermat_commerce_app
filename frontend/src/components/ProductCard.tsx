@@ -17,24 +17,29 @@ export function ProductCard({ product }: ProductCardProps) {
                 />
             </div>
 
-            <h3 className="product-name">{product.name}</h3>
-
-            <p className="product-description">{product.description}</p>
-
-            <div className="product-rating">
-                {product.rating.toFixed(1)} ★
+            <div className="product-content">
+                <h3 className="product-name">{product.name}</h3>
+                <p className="product-description">{product.description}</p>
             </div>
 
-            <div className="product-sold">
-                {product.purchaseCount.toLocaleString()} sold
-            </div>
+            <div className="product-footer">
+                <div className="product-meta-row">
+                    <div className="product-price">
+                        ${product.price.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+                    </div>
+                    <div className="product-rating">
+                        {product.rating.toFixed(1)} ★
+                    </div>
+                </div>
 
-            <div className="product-price">
-                ${product.price.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
-            </div>
-
-            <div className="product-category">
-                {product.category}
+                <div className="product-meta-row">
+                    <div className="product-category">
+                        {product.category}
+                    </div>
+                    <div className="product-sold">
+                        {product.purchaseCount.toLocaleString()} sold
+                    </div>
+                </div>
             </div>
         </div>
     );

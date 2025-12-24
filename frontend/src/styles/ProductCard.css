@@ -2,7 +2,7 @@
 .product-grid {
     display: grid;
     grid-template-columns: repeat(1, 1fr);
-    gap: 2rem;
+    gap: 2.3rem;
 }
 
 @media (min-width: 640px) {
@@ -34,8 +34,8 @@
     border-radius: 0.5rem;
     /* rounded-lg */
     overflow: hidden;
-    padding: 1rem;
-    /* p-4 */
+    padding: 1.15rem;
+    /* increased by ~15% */
     transition: box-shadow 0.2s;
 }
 
@@ -64,12 +64,17 @@
     /* subtle zoom? */
 }
 
+/* Content Section - grows to push footer down */
+.product-content {
+    flex: 1;
+}
+
 /* Text Content */
 .product-name {
     font-size: 1rem;
     font-weight: 600;
     color: #111;
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.25rem;
     line-height: 1.4;
 }
 
@@ -77,18 +82,20 @@
     font-size: 0.875rem;
     color: #4b5563;
     /* text-gray-600 */
-    margin-bottom: 1rem;
+    margin-bottom: 0;
     line-height: 1.5;
+}
 
-    /* Clamp lines */
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    /* 2 lines max */
-    -webkit-box-orient: vertical;
-    line-clamp: 2;
-    overflow: hidden;
-    height: 2.625rem;
-    /* Approx 2 lines */
+/* Footer - always at bottom */
+.product-footer {
+    margin-top: 1rem;
+}
+
+.product-meta-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.25rem;
 }
 
 .product-rating {
@@ -98,13 +105,12 @@
     font-weight: 600;
     color: #2563eb;
     /* text-blue-600 */
-    margin-bottom: 0.25rem;
 }
 
 .product-sold {
     font-size: 0.8rem;
     color: #6b7280;
-    margin-bottom: 0.5rem;
+    text-align: right;
 }
 
 .product-rating svg {
@@ -118,7 +124,6 @@
     font-size: 1.25rem;
     font-weight: 700;
     color: #000;
-    margin-bottom: 0.25rem;
 }
 
 .product-category {
