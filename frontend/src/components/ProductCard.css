@@ -1,0 +1,116 @@
+/* Product Grid Layout */
+.product-grid {
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    gap: 2.5rem;
+    /* Increased gap to prevent vertical overlap */
+    margin-top: 1rem;
+}
+
+@media (min-width: 640px) {
+    .product-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (min-width: 1024px) {
+    .product-grid {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}
+
+/* Product Card - Clean Style */
+.product-card {
+    display: flex;
+    flex-direction: column;
+    background: white;
+    border-radius: 8px;
+    /* Slight radius per common card design */
+    overflow: hidden;
+    padding: 1rem;
+    /* Subtle bottom border or separator if needed, but per reference usually cleaner */
+    border: 1px solid #e5e5e5;
+    /* Full thin border */
+    text-align: left;
+    transition: transform 0.2s ease;
+    height: 100%;
+}
+
+/*
+.product-card:hover {
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    transform: translateY(-2px);
+    Reference image seems very flat and static, maybe minimal hover
+}
+*/
+
+/* Image */
+.product-image-wrapper {
+    width: 100%;
+    height: 200px;
+    /* Fixed height for consistency */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1rem;
+    background: #f7f7f7;
+    /* Muted background */
+    border-radius: 4px;
+    /* Optional: slight rounding for inner image container */
+}
+
+.product-image {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+}
+
+/* Typography map to reference */
+.product-name {
+    font-size: 0.95rem;
+    /* ~14-15px */
+    font-weight: 600;
+    /* Bold title like "Apple - MacBook..." */
+    color: #1d1d1f;
+    margin: 0 0 0.25rem 0;
+    line-height: 1.3;
+}
+
+.product-description {
+    font-size: 0.85rem;
+    color: #424245;
+    /* Dark gray */
+    margin: 0 0 0.5rem 0;
+    line-height: 1.4;
+    /* Clamp description to 3 lines */
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    line-clamp: 3;
+    /* Standard property */
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    flex-grow: 1;
+    /* Pushes price down */
+}
+
+.product-rating {
+    font-size: 0.8rem;
+    color: #0066cc;
+    /* Blue for links/reviews usually, or gold stars in text */
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+}
+
+.product-price {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: #111;
+    margin: 0 0 0.25rem 0;
+}
+
+.product-category {
+    font-size: 0.75rem;
+    color: #6e6e73;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
