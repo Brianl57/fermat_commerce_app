@@ -5,6 +5,7 @@
 - npm
 
 ## Setup & Running
+Clone this repository.
 
 ### Backend
 1. Navigate to the backend directory:
